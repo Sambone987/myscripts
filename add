@@ -1,5 +1,7 @@
 #! /bin/bash
 
+echo -e "Hello Sam"
+
 echo -e "What is the name of the item? --> \c"
 read ITEM
 echo -e "What is the item cost? --> \c"
