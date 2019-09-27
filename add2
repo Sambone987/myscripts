@@ -1,0 +1,10 @@
+#! /bin/bash
+
+#This program requires that you enter arguments for item name, cost, selling price and inventory number on
+#the command line.
+
+echo -e "$1 \t $2 \t $3 \t $4" >> ~/hardware.database
+
+sort ~/hardware.database > /tmp/$$.tmp
+rm ~/hardware.database
+mv /tmp/$$.tmp ~/hardware.database
