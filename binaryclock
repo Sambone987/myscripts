@@ -1,0 +1,177 @@
+#! /bin/bash
+
+#	Format for the clock:
+#		HR8		MR8		SR8
+#		HR4	ML4	MR4	SL4	SR4
+#	HL2	HR2	ML2	MR2	SL2	SR2
+#	HL1	HR1	ML1	MR1	SL1	SR2
+
+while :
+do
+	HOUR=`date +%H`
+	MIN=`date +%M`
+	SEC=`date +%S`
+
+	if [ $HOUR -ge 20 ]
+	then
+		HL2=1
+	else
+		HL2=0
+	fi
+	
+	if [ $HOUR -ge 10 -a $HOUR -le 19 ]
+	then
+		HL1=1
+	else
+		HL1=0
+	fi
+
+	HOUR1=`expr $HOUR % 10`
+
+	if [ $HOUR1 -ge 8 ]
+	then
+		HR8=1
+	else
+		HR8=0
+	fi
+
+	if [ $HOUR -ge 4 $HOUR1 -le 7 ]
+	then
+		HR4=1
+	else
+		HR4=0
+	fi
+
+	if [ \( $HOUR1 -ge 2 -a $HOUR1 -le 3 \) -o \( $HOUR1 -ge 6 -a $HOUR1 -le7 \) ]
+	then
+		HR2=1
+	else
+		HR2=0
+	fi
+
+	if [ `expr $HOUR1 % 2` -eq 1 ]
+	then
+		HR1=1
+	else
+		HR1=0
+	fi
+
+	if [ $MIN -ge 40 ]
+	then
+		ML4=1
+	else
+		ML4=0
+	fi
+
+	if [ $MIN -ge 20 -a $MIN -le 39 ]
+	then
+		ML2=1
+	else
+		ML2=0
+	fi
+
+	MIN10=`expr $MIN / 10`
+
+	if [ `expr $MIN % 2` -eq 1 ]
+	then
+		ML1=1
+	else
+		ML1=0
+	fi
+		
+	MIN1=`expr $MIN % 10`
+
+	if [ $MIN1 -ge 8 ]
+	then
+		MR8=1
+	else
+		MR8=0
+	fi
+
+	if [ $MIN1 -ge 4 -a $MIN1 -le 7 ]
+	then
+		MR4=1
+	else
+		MR4=0
+	fi
+
+	if [ \( $MIN1 -ge 2 -a $MIN1 -le 3 \) -o \( $MIN1 -ge 6 -a $MIN1 -le 7 \) ]
+	then
+		MR2=1
+	else
+		MR2=0
+	fi
+
+	if [ `expr $MIN1 % 2` -eq 1 ]
+	then
+		MR1=1
+	else
+		MR1=0
+	fi
+		
+	SEC10=`expr $SEC /10`
+
+	if [ $SEC10 -ge 4 ]
+	then
+		SL4=1
+	else
+		SL4=0
+	fi
+		
+	if [ $SEC10 -ge 2 -a $SEC10 -le 3 ]
+	then
+		SL2=1
+	else
+		SL2=0
+	fi
+	
+	if [ `expr $SEC10 % 2` -eq 1 ]
+	then
+		SL1=1
+	else
+		SL1=0
+	fi
+	
+	SEC1=`expr $SEC % 10`
+	
+	if [ $SEC1 -ge 8 ]
+	then
+		SR8=1
+	else 
+		SR8=0
+	fi
+	
+	if [ $SEC1 - ge 4 -a $SEC1 -le 7 ]
+	then
+		SR4=1
+	else
+		SR4=0
+	fi
+		
+	if [ \( $SEC -ge 2 -a $SEC1 -le 3 \) -o \( $SEC1 -ge 6 -a $sec1 -le 7 \) ]
+	then
+		SR2=1
+	else
+		SR2=0
+	fi
+
+	if [ `expr $SEC1 % 2` -eq 1 ]
+	then 
+		SR1=1
+	else
+		SR2=0
+	fi
+
+	clear
+	echo
+	echo "	The time is $HOUR:$MIN:$SEC"
+	echo
+	echo -e "\t  $HR8   $MR8   $SR8"
+	echo -e "\t  $HR4 $ML4 $MR4 $SL4 $SR4"
+	echo -e "\t$HL2 $HR2 $ML2 $MR2 $SL2 $SR2"
+	echo -e "\t$HL1 $HR1 $ML1 $MR1 $SL1 $SL1"
+	echo
+	sleep 1
+done 
+	
+
